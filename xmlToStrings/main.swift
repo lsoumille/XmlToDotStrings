@@ -15,13 +15,13 @@ for ind:Int in 0 ... Process.arguments.count - 1  {
 }
 //Default values
 if url == "" {
-    url = "strings"
+    url = "./strings.xml"
 }
 
 //Get XML path
 guard let
-    xmlPath = NSBundle.mainBundle().pathForResource("strings", ofType: "xml"),
-    data = NSData(contentsOfFile: xmlPath)
+    //xmlPath = NSBundle.mainBundle().pathForResource("strings", ofType: "xml"),
+    data = NSData(contentsOfFile: url)
 else {
        print("No file")
        exit(EXIT_FAILURE)
