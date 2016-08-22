@@ -8,7 +8,7 @@
 
 import Foundation
 
-func escapeDoubleQuote(strWith2Quote:String) -> String {
+func escapeSpecialChars(strWith2Quote:String) -> String {
     var res:String = String("")
     var inSubsitute:Bool = false
     var nbCaract:Int = 0
@@ -40,4 +40,17 @@ func escapeDoubleQuote(strWith2Quote:String) -> String {
         res = res + String(c)
     }
     return res
+}
+
+func writeInLocalizable(data:Dictionary<String, String>) {
+    //Write each line in the new file
+    if let o = NSOutputStream(toFileAtPath: urlTo + "Localizable.strings", append: false){
+        o.open()
+        for (k, v) in data {
+            //escape the double quotes and the \n
+            let str:String = escapeSpecialChars(v)
+            o.write("\"\(k)\"=\"" + str + "\";\n")
+        }
+        o.close()
+    }
 }

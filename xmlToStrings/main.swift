@@ -42,17 +42,18 @@ do {
             dictionary[l.attributes["name"]!] = l.value
         }
     }
-    //Write each line in the new file
-    if let o = NSOutputStream(toFileAtPath: urlTo + "Localizable.strings", append: false){
-        o.open()
-        for (k, v) in dictionary {
-            //escape the double quotes and the \n
-            var str:String = escapeDoubleQuote(v)
-            o.write("\"\(k)\"=\"" + str + "\";\n")
+    //take all the tab lines
+    if let tabLines = xmlDoc.root["string-array"].all {
+        for t in tabLines {
+            var arrayWithItem:[String] = [String]()
+            //add items
+            for c in t.children {
+                arrayWithItem.append(c.value!)
+            }
+            dictionary[t.attributes["name"]!] = arrayWithItem.description
         }
-        o.close()
     }
-    
+    writeInLocalizable(dictionary)
 } catch {
     print("\(error)")
 }
