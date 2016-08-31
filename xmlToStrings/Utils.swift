@@ -8,6 +8,11 @@
 
 import Foundation
 
+/*
+ Convert substitutes in IOS 
+ Escape \n
+ Escape "
+ */
 func escapeSpecialChars(strWith2Quote:String) -> String {
     var res:String = String("")
     var inSubsitute:Bool = false
